@@ -251,6 +251,12 @@ export default class BillingService {
     };
   }
 
+  canBeEngaged() {
+    return (
+      !this.isResiliated() && !this.isExpired() && !this.hasPendingResiliation()
+    );
+  }
+
   hasParticularRenew() {
     return ['EXCHANGE', 'SMS', 'EMAIL_DOMAIN'].includes(this.serviceType);
   }
