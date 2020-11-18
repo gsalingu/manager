@@ -26,7 +26,7 @@
             <oui-action-menu compact placement="end">
                 <oui-action-menu-item
                     ng-if="$ctrl.canBeEngaged && !$ctrl.hasPendingEngagement"
-                    on-click="$ctrl.goToCommit()"
+                    on-click="$ctrl.commit()"
                 >
                     <span
                         data-translate="manager_billing_subscription_service_engagement"
@@ -34,7 +34,7 @@
                 </oui-action-menu-item>
                 <oui-action-menu-item
                     ng-if="$ctrl.hasPendingEngagement"
-                    on-click="$ctrl.goToCancelCommit()"
+                    on-click="$ctrl.cancelCommit()"
                 >
                     <span
                         data-translate="manager_billing_subscription_service_engagement_cancel"
