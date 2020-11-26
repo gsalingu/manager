@@ -33,6 +33,19 @@ export default class Service {
     return moment(this.billing.nextBillingDate).format('LL');
   }
 
+  get engagementEndDate() {
+    return (
+      this.isEngaged() &&
+      this.billing.engagement &&
+      this.billing.engagement.endDate &&
+      moment(this.billing.engagement.endDate).format('LL')
+    );
+  }
+
+  get expirationDate() {
+    return moment(this.billing.expirationDate).format('LL');
+  }
+
   get productType() {
     return this.route.path
       .replace(/{.*}/, '')
@@ -62,5 +75,9 @@ export default class Service {
   addOptions(options) {
     this.options.push(...options);
     this.totalPrice += sumBy(options, 'totalPrice');
+  }
+
+  isEngaged() {
+    return !!this.billing.pricing.engagementConfiguration;
   }
 }
