@@ -16,7 +16,8 @@ if (fs.existsSync(inputFilePath)) {
 
 export default {
   environment: process.env.NODE_ENV || 'development',
-  baseUrl: dataset.BASE_URL || process.env.BASE_URL || 'http://localhost:9000/',
+  baseUrl:
+    dataset.BASE_URL || process.env.BASE_URL || 'https://www.ovh.com/manager',
   apiv6Url:
     dataset.APIV6_URL ||
     process.env.APIV6_URL ||
