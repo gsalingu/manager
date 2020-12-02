@@ -33,36 +33,20 @@ export default {
      */
     iframeVantivCtrl.insertThreatMetrix = ({ formSessionId, organizationId }) =>
       new Promise((resolve) => {
-        const threatMetricParams = `?org_id=${organizationId}&session_id=${formSessionId}&pageid=${THREAT_METRIX.PAGE_ID}`;
 
         // insert ThreatMetrix script
         integrationCtrl.insertElement(
           'script',
           {
-            src: `${THREAT_METRIX.SCRIPT.src}${threatMetricParams}`,
+            src: `${THREAT_METRIX.SCRIPT.src}`, //now we only download the obfuscation script
             id: THREAT_METRIX.SCRIPT.id,
             type: 'text/javascript',
           },
           {
             onload: () => {
-              // when script is loaded - add the invisble iframe of ThreatMetrix into noscript tag
-              const tmNoscriptTag = integrationCtrl.insertElement('noscript', {
-                id: `${THREAT_METRIX.IFRAME.id}_noscript`,
-              });
-              integrationCtrl.insertElement(
-                'iframe',
-                {
-                  id: THREAT_METRIX.IFRAME.id,
-                  src: `${THREAT_METRIX.IFRAME.src}${threatMetricParams}`,
-                },
-                {
-                  onload: () => resolve(),
-                },
-                THREAT_METRIX.CSS,
-                {
-                  tmNoscriptTag,
-                },
-              );
+                // when script is loaded - call the profile function with the proper parameters
+                // this is what will now deal with all the tag calling / obfuscation / checks boilerplate, the rest of the code is not necessary anymore
+                threatmetrix.profile(THREAT_METRIX.PROFILING_DOMAIN, organizationId, formSessionId, THREAT_METRIX.PAGE_ID);
             },
           },
         );

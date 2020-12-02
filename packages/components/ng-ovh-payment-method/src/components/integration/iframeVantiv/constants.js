@@ -1,12 +1,9 @@
 export const THREAT_METRIX = {
   PAGE_ID: 1,
+  PROFILING_DOMAIN: 'metrix.us.ovhcloud.com', //replacing h.online-metrix.net
   SCRIPT: {
     id: 'threat_metric_script',
-    src: 'https://h.online-metrix.net/fp/tags.js',
-  },
-  IFRAME: {
-    id: 'threat_metric_iframe',
-    src: ' https://us.ovhcloud.com/order/threatmetrix',
+    src: 'http://localhost:8080/4242.js', //endpoint serving the tag obfuscation script
   },
   CSS: {
     with: '100px',
