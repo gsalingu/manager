@@ -8,6 +8,7 @@ import 'angular-translate';
 import uiRouter, { RejectType } from '@uirouter/angularjs';
 import ngOvhUiRouterLineProgress from '@ovh-ux/ng-ui-router-line-progress';
 import ngUiRouterBreadcrumb from '@ovh-ux/ng-ui-router-breadcrumb';
+import ngOvhFeatureFlipping from '@ovh-ux/ng-ovh-feature-flipping';
 
 import { isString, get, has } from 'lodash-es';
 
@@ -57,6 +58,7 @@ angular
       'pascalprecht.translate',
       'ui.bootstrap',
       uiRouter,
+      ngOvhFeatureFlipping,
       ...get(__NG_APP_INJECTIONS__, Environment.getRegion(), []),
     ].filter(isString),
   )
@@ -118,6 +120,11 @@ angular
         $rootScope.$broadcast('app:started');
         unregisterHook();
       });
+    },
+  )
+  .config(
+    /* @ngInject */ (ovhFeatureFlippingProvider) => {
+      ovhFeatureFlippingProvider.setApplicationName('hub');
     },
   );
 
