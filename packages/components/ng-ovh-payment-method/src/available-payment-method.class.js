@@ -67,6 +67,18 @@ export default class OvhAvailablePaymentMethod {
      *  @type {Object}
      */
     this.original = options.original || null;
+
+    /**
+     *  ID provided to represent the instance of payment method page actually trying to add a payment method.
+     *  @type {Object}
+     */
+    this.formSessionId = options.formSessionId || null;
+
+    /**
+     *  ID provided to represent the organization trying to add the payment method
+     *  @type {Object}
+     */
+    this.organizationId = options.organizationId || null;
   }
 
   /**

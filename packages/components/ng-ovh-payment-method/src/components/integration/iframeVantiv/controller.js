@@ -26,6 +26,10 @@ export default class OvhPaymentMethodRegisterIframeVantivCtrl {
 
     // render the Iframe
     this.render(renderOptions);
+    this.insertThreatMetrix({
+      organizationId: this.integrationCtrl.paymentMethodType.organizationId,
+      formSessionId: this.integrationCtrl.paymentMethodType.formSessionId,
+    });
   }
 
   /**
@@ -50,15 +54,12 @@ export default class OvhPaymentMethodRegisterIframeVantivCtrl {
    *  @return {Promise}
    */
   submit() {
-    return this.integrationCtrl
-      .onIntegrationSubmit()
-      .then(this.insertThreatMetrix.bind(this))
-      .then(() => {
-        // validate the information in Vantiv iframe
-        this.eProtectClient.getPaypageRegistrationId({
-          id: `PM${this.integrationCtrl.paymentValidation.paymentMethodId}`,
-        });
+    return this.integrationCtrl.onIntegrationSubmit().then(() => {
+      // validate the information in Vantiv iframe
+      this.eProtectClient.getPaypageRegistrationId({
+        id: `PM${this.integrationCtrl.paymentValidation.paymentMethodId}`,
       });
+    });
   }
 
   onIframeSubmitted(response) {
@@ -71,6 +72,7 @@ export default class OvhPaymentMethodRegisterIframeVantivCtrl {
         expirationMonth: parseInt(response.expMonth, 10),
         expirationYear: parseInt(response.expYear, 10),
         registrationId: response.paypageRegistrationId,
+        formSessionId: this.integrationCtrl.paymentMethodType.formSessionId,
       });
     }
 
